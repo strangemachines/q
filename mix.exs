@@ -7,6 +7,11 @@ defmodule Q.MixProject do
       version: "0.1.0",
       elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
+      name: "Q",
+      description: "A query parser builder",
+      homepage_url: "https://github.com/strangemachines/q",
+      source_url: "https://github.com/strangemachines/q",
+      package: package(),
       deps: deps(),
       docs: [
         main: "readme",
@@ -26,6 +31,16 @@ defmodule Q.MixProject do
       {:credo, "~> 0.9", only: :dev, runtime: false},
       {:dummy, "~> 1.3", only: :test},
       {:ex_doc, "~> 0.21", only: :dev, runtime: false}
+    ]
+  end
+
+  defp package do
+    [
+      name: :q,
+      files: ~w(mix.exs lib .formatter.exs README.md LICENSE),
+      maintainers: ["Jacopo Cascioli"],
+      licenses: ["MPL-2.0"],
+      links: %{"GitHub" => "https://github.com/strangemachines/q"}
     ]
   end
 end
