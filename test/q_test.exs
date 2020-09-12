@@ -6,6 +6,10 @@ defmodule QTest do
     assert Q.options() == {":"}
   end
 
+  test "cut_operator/2" do
+    assert Q.cut_operator(">operator", ">") == "operator"
+  end
+
   test "break_string/1" do
     assert Q.break_string("q:hello") == %{"q" => "hello"}
   end
