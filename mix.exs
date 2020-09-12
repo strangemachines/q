@@ -29,7 +29,7 @@ defmodule Q.MixProject do
   defp deps do
     [
       {:credo, "~> 0.9", only: :dev, runtime: false},
-      {:dummy, "~> 1.3", only: :test},
+      {:dummy, "~> 1.4", only: :test},
       {:ex_doc, "~> 0.21", only: :dev, runtime: false}
     ]
   end
