@@ -2,6 +2,10 @@ defmodule QTest do
   use ExUnit.Case
   doctest Q
 
+  test "options/0" do
+    assert Q.options() == {":"}
+  end
+
   test "break_string/1" do
     assert Q.break_string("q:hello") == %{"q" => "hello"}
   end

@@ -2,6 +2,9 @@ defmodule Q do
   @moduledoc """
   Documentation for `Q`.
   """
+  @fragment_separator Application.get_env(:q, :fragment_separator, ":")
+
+  def options(), do: {@fragment_separator}
 
   @doc """
   Breaks the string in fragments and then puts the fragments into an
