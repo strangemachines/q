@@ -27,6 +27,21 @@ defmodule QTest do
     assert Q.put_value(nil, %{}, :key, :value, :put) == %{:key => :value}
   end
 
+  test "match_operators/5" do
+    dummy Q, [{"put_value/5", :put_value}] do
+      result = Q.match_operators(:key, ">value", %{}, [">"], :mode)
+      assert called(Q.put_value(">", %{}, :key, ">value", :mode))
+      assert result == :put_value
+    end
+  end
+
+  test "match_operators/5 with none found" do
+    dummy Q, [{"put_value/5", :put_value}] do
+      result = Q.match_operators(:key, "value", %{}, [">"], :mode)
+      assert called(Q.put_value(nil, %{}, :key, "value", :mode))
+    end
+  end
+
   test "break_string/1" do
     assert Q.break_string("q:hello") == %{"q" => "hello"}
   end

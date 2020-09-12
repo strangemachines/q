@@ -34,6 +34,19 @@ defmodule Q do
     Map.put(acc, key, %{value: Q.cut_operator(value, op), operator: op})
   end
 
+  @spec match_operators(
+          key :: String.t(),
+          value :: String.t(),
+          acc :: map,
+          operators :: [String.t()],
+          default_mode :: :acc | :put
+        ) :: map()
+  def match_operators(key, value, acc, operators, default) do
+    operators
+    |> Enum.find(fn operator -> String.starts_with?(value, operator) end)
+    |> Q.put_value(acc, key, value, default)
+  end
+
   @doc """
   Breaks the string in fragments and then puts the fragments into an
   accumulator. For example, "x:0 y:1" would become %{"x" => 0, "y" => 1}
