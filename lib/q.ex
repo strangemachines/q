@@ -7,6 +7,14 @@ defmodule Q do
   def options(), do: {@fragment_separator}
 
   @doc """
+  Cuts the operator from the value.
+  """
+  @spec cut_operator(value :: String.t(), operator :: String.t()) :: String.t()
+  def cut_operator(value, operator) do
+    String.slice(value, String.length(operator)..-1)
+  end
+
+  @doc """
   Breaks the string in fragments and then puts the fragments into an
   accumulator. For example, "x:0 y:1" would become %{"x" => 0, "y" => 1}
   """
