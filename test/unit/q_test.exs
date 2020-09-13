@@ -50,4 +50,9 @@ defmodule QTest do
     result = Q.break_string("q:hello w:world")
     assert result == %{"q" => "hello", "w" => "world"}
   end
+
+  test "parse_shards/2" do
+    result = Q.parse_shards(%{"k" => "v"}, fn _acc, x -> x end)
+    assert result == {"k", "v"}
+  end
 end
