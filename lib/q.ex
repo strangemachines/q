@@ -62,6 +62,14 @@ defmodule Q do
   end
 
   @doc """
+  Iterates shards against a given function, usually catch_param.
+  """
+  @spec parse_shards(shards :: map, f :: fun()) :: map()
+  def parse_shards(shards, f) do
+    Enum.reduce(shards, %{}, fn shard, acc -> f.(acc, shard) end)
+  end
+
+  @doc """
   Creates a catch_param function to catch the param when it matches one of
   the operators, or fallback to a default.
   """
