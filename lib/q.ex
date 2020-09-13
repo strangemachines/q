@@ -60,4 +60,22 @@ defmodule Q do
       Map.put(acc, List.first(fragment), List.last(fragment))
     end)
   end
+
+  @doc """
+  Creates a catch_param function to catch the param when it matches one of
+  the operators, or fallback to a default.
+  """
+  defmacro param(param, key, operators, mode) do
+    quote do
+      def catch_param(acc, %{unquote(param) => value}) do
+        match_operators(
+          unquote(key),
+          value,
+          acc,
+          unquote(operators),
+          unquote(mode)
+        )
+      end
+    end
+  end
 end
