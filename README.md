@@ -22,7 +22,7 @@ def filter_set(query, _params), do: query
 Add the dependency to your mix.exs:
 
 ```elixir
-{:q, "~> 1.0"}
+{:q_parser, "~> 1.0"}
 ```
 
 
