@@ -23,4 +23,17 @@ defmodule Q.SearchTest do
   test "catch_param/2 with no matching params" do
     assert Search.catch_param(%{}, %{"x" => "whatever"}) == %{}
   end
+
+  test "parse/1" do
+    result = Search.parse(%{"q" => "t:sorcery cmc:>1"})
+
+    assert result == %{
+             "cmc" => %{operator: ">", value: "1"},
+             "type" => "sorcery"
+           }
+  end
+
+  test "parse/1 without q" do
+    assert Search.parse(:whatever) == %{}
+  end
 end
