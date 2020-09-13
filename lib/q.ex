@@ -78,4 +78,17 @@ defmodule Q do
       end
     end
   end
+
+  defmacro __using__([]) do
+    quote do
+      import Q
+      @before_compile Q
+    end
+  end
+
+  defmacro __before_compile__(_env) do
+    quote do
+      def catch_param(acc, _params), do: acc
+    end
+  end
 end
