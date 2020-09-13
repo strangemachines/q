@@ -15,3 +15,28 @@ def filter_set(query, %{"set" => set}), do: where(query, [c], c.set == ^set)
 
 def filter_set(query, _params), do: query
 ```
+
+
+## Usage
+
+Use `param` to declare what you want parsed:
+
+```elixir
+defmodule MyApp.Search
+  use Q
+
+  param("t", :type, ["-"], :put)
+end
+```
+
+Then call `parse/1` to parse:
+
+```elixir
+defmodule MyApp do
+  def run() do
+    MyApp.Search.parse(%{"q" => "world x:whatever t:magic hello"})
+  end
+end
+```
+
+The above will produce `%{type: "magic"}` Map.
