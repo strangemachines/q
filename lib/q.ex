@@ -67,7 +67,8 @@ defmodule Q do
   """
   defmacro param(param, key, operators, mode) do
     quote do
-      def catch_param(acc, %{unquote(param) => value}) do
+      @spec catch_param(acc :: map(), shard :: tuple()) :: map()
+      def catch_param(acc, {unquote(param), value}) do
         match_operators(
           unquote(key),
           value,
