@@ -1,4 +1,4 @@
 use Mix.Config
 
-config :q,
+config :q_parser,
   fragment_separator: ":"

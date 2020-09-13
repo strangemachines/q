@@ -3,11 +3,11 @@ defmodule Q.MixProject do
 
   def project do
     [
-      app: :q,
+      app: :q_parser,
       version: "1.0.0",
       elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
-      name: "Q",
+      name: "Q Parser",
       description: "A query parser builder",
       homepage_url: "https://github.com/strangemachines/q",
       source_url: "https://github.com/strangemachines/q",
