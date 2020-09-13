@@ -92,6 +92,14 @@ defmodule Q do
     quote do
       import Q
       @before_compile Q
+
+      def parse(%{"q" => q} = params) do
+        q
+        |> break_string()
+        |> parse_shards(&catch_param/2)
+      end
+
+      def parse(_params), do: %{}
     end
   end
 
