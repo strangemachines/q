@@ -16,6 +16,15 @@ def filter_set(query, %{"set" => set}), do: where(query, [c], c.set == ^set)
 def filter_set(query, _params), do: query
 ```
 
+## Installation
+
+
+Add the dependency to your mix.exs:
+
+```elixir
+{:q, "~> 1.0"}
+```
+
 
 ## Usage
 
