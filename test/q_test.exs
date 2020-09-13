@@ -37,7 +37,7 @@ defmodule QTest do
 
   test "match_operators/5 with none found" do
     dummy Q, [{"put_value/5", :put_value}] do
-      result = Q.match_operators(:key, "value", %{}, [">"], :mode)
+      Q.match_operators(:key, "value", %{}, [">"], :mode)
       assert called(Q.put_value(nil, %{}, :key, "value", :mode))
     end
   end
