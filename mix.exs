@@ -36,7 +36,7 @@ defmodule Q.MixProject do
 
   defp package do
     [
-      name: :q,
+      name: :q_parser,
       files: ~w(mix.exs lib .formatter.exs README.md LICENSE),
       maintainers: ["nomorepanic"],
       licenses: ["MPL-2.0"],
