@@ -3,12 +3,12 @@ defmodule Q.SearchTest do
   alias Q.Search
 
   test "catch_param/2 on t" do
-    assert Search.catch_param(%{}, {"t", "land"}) == %{"type" => "land"}
+    assert Search.catch_param(%{}, {"t", "land"}) == %{type: "land"}
   end
 
   test "catch_param/2 on t with an operator" do
     result = Search.catch_param(%{}, {"t", "-land"})
-    assert result == %{"type" => %{value: "land", operator: "-"}}
+    assert result == %{type: %{value: "land", operator: "-"}}
   end
 
   test "catch_param/2 on cmc" do
@@ -29,7 +29,7 @@ defmodule Q.SearchTest do
 
     assert result == %{
              "cmc" => %{operator: ">", value: "1"},
-             "type" => "sorcery"
+             :type => "sorcery"
            }
   end
 
