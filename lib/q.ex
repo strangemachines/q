@@ -88,6 +88,15 @@ defmodule Q do
     end
   end
 
+  defmacro param(param, key) do
+    quote do
+      @spec catch_param(acc :: map(), shard :: tuple()) :: map()
+      def catch_param(acc, {unquote(param), value}) do
+        put_value(nil, acc, unquote(key), value, :put)
+      end
+    end
+  end
+
   defmacro __using__([]) do
     quote do
       import Q

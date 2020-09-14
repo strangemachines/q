@@ -4,6 +4,8 @@ defmodule Q.Search do
   """
   use Q
 
+  param("c", :color)
+
   param("t", :type, ["-"], :put)
 
   param("cmc", "cmc", [">", "<"], :acc)
