@@ -9,4 +9,8 @@ defmodule Q.Search do
   param("t", :type, ["-"], :put)
 
   param("cmc", "cmc", [">", "<"], :acc)
+
+  def post_process(result) do
+    {:ok, result}
+  end
 end
