@@ -97,9 +97,10 @@ defmodule Q do
     end
   end
 
-  defmacro __using__([]) do
+  defmacro __using__(opts \\ []) do
     quote do
-      import Q
+      import Q, except: unquote(Keyword.get(opts, :except, []))
+
       @before_compile Q
 
       @doc """
