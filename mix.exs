@@ -4,7 +4,7 @@ defmodule Q.MixProject do
   def project do
     [
       app: :q_parser,
-      version: "1.0.1",
+      version: "1.1.0",
       elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
       name: "Q Parser",
