@@ -30,11 +30,8 @@ defmodule Q.SearchTest do
 
   test "parse/1" do
     result = Search.parse(%{"q" => "t:sorcery cmc:>1"})
-
-    assert result == %{
-             "cmc" => %{operator: ">", value: "1"},
-             :type => "sorcery"
-           }
+    parsed = %{"cmc" => %{operator: ">", value: "1"}, :type => "sorcery"}
+    assert result == {:ok, parsed}
   end
 
   test "parse/1 without q" do
