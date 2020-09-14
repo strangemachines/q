@@ -100,6 +100,8 @@ defmodule Q do
       end
 
       def parse(_params), do: %{}
+
+      defoverridable parse: 1
     end
   end
 
