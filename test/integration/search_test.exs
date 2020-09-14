@@ -2,6 +2,10 @@ defmodule Q.SearchTest do
   use ExUnit.Case
   alias Q.Search
 
+  test "catch_param/2 on c" do
+    assert Search.catch_param(%{}, {"c", "u"}) == %{color: "u"}
+  end
+
   test "catch_param/2 on t" do
     assert Search.catch_param(%{}, {"t", "land"}) == %{type: "land"}
   end
