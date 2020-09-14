@@ -102,15 +102,22 @@ defmodule Q do
       import Q
       @before_compile Q
 
+      @doc """
+      Performs further processing after the parsing has been done.
+      """
+      @spec post_process(result :: map()) :: map()
+      def post_process(result), do: result
+
       def parse(%{"q" => q} = params) do
         q
         |> break_string()
         |> parse_shards(&catch_param/2)
+        |> post_process()
       end
 
       def parse(_params), do: %{}
 
-      defoverridable parse: 1
+      defoverridable parse: 1, post_process: 1
     end
   end
 
