@@ -48,20 +48,6 @@ defmodule Q do
   end
 
   @doc """
-  Breaks the string in fragments and then puts the fragments into an
-  accumulator. For example, "x:0 y:1" would become %{"x" => 0, "y" => 1}
-  """
-  @spec break_string(string :: String.t()) :: map()
-  def break_string(string) do
-    string
-    |> String.split()
-    |> Enum.reduce(%{}, fn shard, acc ->
-      fragment = String.split(shard, ":")
-      Map.put(acc, List.first(fragment), List.last(fragment))
-    end)
-  end
-
-  @doc """
   Iterates shards against a given function, usually catch_param.
   """
   @spec parse_shards(shards :: map, f :: fun()) :: map()
@@ -109,6 +95,27 @@ defmodule Q do
       @spec post_process(result :: map()) :: map()
       def post_process(result), do: result
 
+      @doc """
+      Breaks shards in fragments using the fragments separator, for example
+      "x:0" into ["x", "0"]. Can be overriden for custom behaviours.
+      """
+      @spec break_shard(shard :: String.t()) :: list
+      def break_shard(shard), do: String.split(shard, ":")
+
+      @doc """
+      Breaks the string in shards and then puts the shards into an
+      accumulator. For example, "x:0 y:1" would become %{"x" => 0, "y" => 1}
+      """
+      @spec break_string(string :: String.t()) :: map()
+      def break_string(string) do
+        string
+        |> String.split()
+        |> Enum.reduce(%{}, fn shard, acc ->
+          fragments = break_shard(shard)
+          Map.put(acc, List.first(fragments), List.last(fragments))
+        end)
+      end
+
       def parse(%{"q" => q} = params) do
         q
         |> break_string()
@@ -118,7 +125,7 @@ defmodule Q do
 
       def parse(_params), do: %{}
 
-      defoverridable parse: 1, post_process: 1
+      defoverridable break_shard: 1, parse: 1, post_process: 1
     end
   end
 
