@@ -36,6 +36,8 @@ defmodule MyApp.Search
   param("c", :color)
 
   param("t", :type, ["-"], :put)
+
+  param("cmc", "cmc", [">", "<"], :acc)
 end
 ```
 
@@ -44,9 +46,17 @@ Then call `parse/1` to parse:
 ```elixir
 defmodule MyApp do
   def run() do
-    MyApp.Search.parse(%{"q" => "world x:whatever t:magic c:u hello"})
+    MyApp.Search.parse(%{"q" => "hello x:whatever t:magic c:u cmc:>2,<5"})
   end
 end
 ```
 
-The above will produce `%{color: "u", type: "magic"}` Map.
+The above will produce:
+
+```elixir
+%{
+  color => "u",
+  type => "magic",  
+  "cmc" => [%{operator: "<", value: "5"}, %{operator: ">", value: "2"}]
+}
+```
