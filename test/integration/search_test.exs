@@ -43,6 +43,11 @@ defmodule Q.SearchTest do
     assert result == %{"cmc" => value}
   end
 
+  test "catch_param/2 with multiple unmatched values" do
+    result = Search.catch_param(%{}, {"t", "instant,sorcery"})
+    assert result == %{:type => ["sorcery", "instant"]}
+  end
+
   test "catch_param/2 with no matching params" do
     assert Search.catch_param(%{}, %{"x" => "whatever"}) == %{}
   end

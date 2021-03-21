@@ -20,17 +20,11 @@ defmodule QTest do
   end
 
   test "put_value/5" do
-    dummy Q, [{"cut_operator/2", :value}] do
+    dummy Q, [{"cut_operator/2", :value}, {"accumulate/3", :accumulate}] do
       result = Q.put_value(">", %{}, "key", ">value", nil)
       assert called(Q.cut_operator(">value", ">"))
-      assert result == %{"key" => %{value: :value, operator: ">"}}
-    end
-  end
-
-  test "put_value/5 when acc[key] is not null" do
-    dummy Q, [{"cut_operator/2", "two"}] do
-      result = Q.put_value(">", %{"key" => "one"}, "key", ">two", nil)
-      assert result == %{"key" => [%{operator: ">", value: "two"}, "one"]}
+      assert called(Q.accumulate(%{}, "key", %{value: :value, operator: ">"}))
+      assert result == :accumulate
     end
   end
 
@@ -39,7 +33,10 @@ defmodule QTest do
   end
 
   test "put_value/5 with :put" do
-    assert Q.put_value(nil, %{}, :key, :value, :put) == %{:key => :value}
+    dummy Q, [{"accumulate/3", :accumulate}] do
+      assert Q.put_value(nil, %{}, :key, :value, :put) == :accumulate
+      assert called(Q.accumulate(%{}, :key, :value))
+    end
   end
 
   test "match_operators/5" do
