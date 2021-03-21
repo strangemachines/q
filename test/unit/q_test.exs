@@ -19,6 +19,13 @@ defmodule QTest do
     end
   end
 
+  test "put_value/5 when acc[key] is not null" do
+    dummy Q, [{"cut_operator/2", "two"}] do
+      result = Q.put_value(">", %{"key" => "one"}, "key", ">two", nil)
+      assert result == %{"key" => [%{operator: ">", value: "two"}, "one"]}
+    end
+  end
+
   test "put_value/5 with :acc" do
     assert Q.put_value(nil, %{}, :key, :value, :acc) == %{}
   end

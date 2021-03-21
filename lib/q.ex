@@ -31,7 +31,13 @@ defmodule Q do
           mode :: :acc | :put
         ) :: map()
   def put_value(op, acc, key, value, _mode) do
-    Map.put(acc, key, %{value: Q.cut_operator(value, op), operator: op})
+    parsed_value = %{value: Q.cut_operator(value, op), operator: op}
+
+    if acc[key] != nil do
+      Map.update!(acc, key, fn v -> List.flatten([parsed_value | [v]]) end)
+    else
+      Map.put(acc, key, %{value: Q.cut_operator(value, op), operator: op})
+    end
   end
 
   @spec match_operators(
