@@ -27,7 +27,9 @@ defmodule Q do
 
   def put_value(nil, acc, _key, _value, :acc), do: acc
 
-  def put_value(nil, acc, key, value, :put), do: Map.put(acc, key, value)
+  def put_value(nil, acc, key, value, :put) do
+    Q.accumulate(acc, key, value)
+  end
 
   @doc """
   Puts the value in the accumulator, creating a value+operator map.
@@ -42,13 +44,8 @@ defmodule Q do
           mode :: :acc | :put
         ) :: map()
   def put_value(op, acc, key, value, _mode) do
-    parsed_value = %{value: Q.cut_operator(value, op), operator: op}
-
-    if acc[key] != nil do
-      Map.update!(acc, key, fn v -> List.flatten([parsed_value | [v]]) end)
-    else
-      Map.put(acc, key, %{value: Q.cut_operator(value, op), operator: op})
-    end
+    acc
+    |> Q.accumulate(key, %{value: Q.cut_operator(value, op), operator: op})
   end
 
   @spec match_operators(
