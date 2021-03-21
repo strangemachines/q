@@ -2,6 +2,19 @@ defmodule Q.SearchTest do
   use ExUnit.Case
   alias Q.Search
 
+  test "break_shard/1" do
+    assert Search.break_shard("x:0") == ["x", "0"]
+  end
+
+  test "break_string/1" do
+    assert Search.break_string("q:hello") == %{"q" => "hello"}
+  end
+
+  test "break_string/1 with more elements" do
+    result = Search.break_string("q:hello w:world")
+    assert result == %{"q" => "hello", "w" => "world"}
+  end
+
   test "catch_param/2 on c" do
     assert Search.catch_param(%{}, {"c", "u"}) == %{color: "u"}
   end

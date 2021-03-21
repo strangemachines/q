@@ -42,15 +42,6 @@ defmodule QTest do
     end
   end
 
-  test "break_string/1" do
-    assert Q.break_string("q:hello") == %{"q" => "hello"}
-  end
-
-  test "break_string/1 with more elements" do
-    result = Q.break_string("q:hello w:world")
-    assert result == %{"q" => "hello", "w" => "world"}
-  end
-
   test "parse_shards/2" do
     result = Q.parse_shards(%{"k" => "v"}, fn _acc, x -> x end)
     assert result == {"k", "v"}
