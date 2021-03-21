@@ -47,10 +47,14 @@ defmodule Q do
           operators :: [String.t()],
           default_mode :: :acc | :put
         ) :: map()
-  def match_operators(key, value, acc, operators, default) do
-    operators
-    |> Enum.find(fn operator -> String.starts_with?(value, operator) end)
-    |> Q.put_value(acc, key, value, default)
+  def match_operators(key, string, acc, operators, default) do
+    string
+    |> String.split(",")
+    |> Enum.reduce(acc, fn value, accumulator ->
+      operators
+      |> Enum.find(fn operator -> String.starts_with?(value, operator) end)
+      |> Q.put_value(accumulator, key, value, default)
+    end)
   end
 
   @doc """

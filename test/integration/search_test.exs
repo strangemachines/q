@@ -37,6 +37,12 @@ defmodule Q.SearchTest do
     assert result == %{"cmc" => %{operator: ">", value: "3"}}
   end
 
+  test "catch_param/2 on cmc with multiple values" do
+    result = Search.catch_param(%{}, {"cmc", ">3,<5"})
+    value = [%{operator: "<", value: "5"}, %{operator: ">", value: "3"}]
+    assert result == %{"cmc" => value}
+  end
+
   test "catch_param/2 with no matching params" do
     assert Search.catch_param(%{}, %{"x" => "whatever"}) == %{}
   end
