@@ -11,6 +11,14 @@ defmodule QTest do
     assert Q.cut_operator(">operator", ">") == "operator"
   end
 
+  test "accumulate/3" do
+    assert Q.accumulate(%{}, :key, :one) == %{:key => :one}
+  end
+
+  test "accumulate/3 with an existing key" do
+    assert Q.accumulate(%{:key => :one}, :key, :two) == %{:key => [:two, :one]}
+  end
+
   test "put_value/5" do
     dummy Q, [{"cut_operator/2", :value}] do
       result = Q.put_value(">", %{}, "key", ">value", nil)
