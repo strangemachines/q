@@ -14,6 +14,17 @@ defmodule Q do
     String.slice(value, String.length(operator)..-1)
   end
 
+  @doc """
+  Accumulates a value into a key.
+  """
+  def accumulate(acc, key, value) do
+    if acc[key] != nil do
+      Map.update!(acc, key, fn v -> List.flatten([value | [v]]) end)
+    else
+      Map.put(acc, key, value)
+    end
+  end
+
   def put_value(nil, acc, _key, _value, :acc), do: acc
 
   def put_value(nil, acc, key, value, :put), do: Map.put(acc, key, value)
